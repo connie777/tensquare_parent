@@ -1,0 +1,5 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: tensquare-base  ###服务间调用的时候用
