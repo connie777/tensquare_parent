@@ -3,3 +3,11 @@ server:
 spring:
   application:
     name: tensquare-base  ###服务间调用的时候用
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.123/tensquare_base?characterEncoding=utf-8
+    username: root
+    password: 123456
+  jpa:
+    database: mysql
+    show-sql: true
