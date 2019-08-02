@@ -16,6 +16,11 @@ public class PageResult<T> {
     public PageResult() {
     }
 
+    /**
+     *
+     * @param total 总记录数
+     * @param rows 查询结果
+     */
     public PageResult(long total, List<T> rows) {
         this.total = total;
         this.rows = rows;
