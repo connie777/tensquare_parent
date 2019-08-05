@@ -10,3 +10,12 @@ gen
 tensquare_base/src/test/
 tensquare_common/src/main/resources/
 tensquare_common/src/test/
+/target/
+tensquare_article/target/generated-sources/
+tensquare_base/target/generated-sources/
+tensquare_common/target/generated-sources/
+tensquare_gathering/target/generated-sources/
+tensquare_qa/target/generated-sources/
+tensquare_recruit/target/generated-sources/
+tensquare_spit/src/test/
+tensquare_spit/target/generated-sources/
