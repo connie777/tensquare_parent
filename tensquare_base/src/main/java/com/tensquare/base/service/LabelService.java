@@ -59,7 +59,7 @@ public class LabelService {
         return labelDao.findAll(new Specification<Label>() {
             /**
              *
-             * @param root 根对象，也就是要把条件封装到哪个对象中。
+             * @param root 根对象，获取列名
              * @param query 封装的都是查询关键字，如group by order by
              * @param cb 封装条件对象,如果直接返回null，表示不需要任何条件
              * @return

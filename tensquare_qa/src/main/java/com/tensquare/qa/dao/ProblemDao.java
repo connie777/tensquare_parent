@@ -16,7 +16,9 @@ import java.util.List;
  *
  */
 public interface ProblemDao extends JpaRepository<Problem,String>,JpaSpecificationExecutor<Problem>{
-    @Query(value = "SELECT * FROM tb_problem,tb_pl WHERE id=problemid AND labelid=? order by replytime desc ",nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_problem,tb_pl " +
+            "WHERE id=problemid AND labelid=? " +
+            "order by replytime desc ",nativeQuery = true)
 	public Page<Problem> newlist(String labelid, Pageable pageable);
 
     @Query(value = "SELECT * FROM tb_problem,tb_pl WHERE id=problemid AND labelid=? order by reply desc ",nativeQuery = true)

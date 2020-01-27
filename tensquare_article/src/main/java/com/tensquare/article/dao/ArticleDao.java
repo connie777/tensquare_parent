@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface ArticleDao extends JpaRepository<Article,String>,JpaSpecificationExecutor<Article>{
+    //增删改需要加该注解
 	@Modifying
     @Query(value = "UPDATE tb_article SET state = '1' WHERE id = ?",nativeQuery = true)
     public void updateState(String id);

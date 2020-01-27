@@ -81,7 +81,7 @@ public class GatheringService {
 	 * @return
 	 */
 	//#用于获取方法参数
-    //加入
+    //spring cache 无法设置过期时间
 	@Cacheable(value = "gathering",key = "#id")
 	public Gathering findById(String id) {
 		return gatheringDao.findById(id).get();

@@ -13,5 +13,6 @@ import java.util.List;
  *
  */
 public interface EnterpriseDao extends JpaRepository<Enterprise,String>,JpaSpecificationExecutor<Enterprise>{
-	public List<Enterprise> findByIshot(String ishot);//where ishot = ?
+	//查询热门企业
+    public List<Enterprise> findByIshot(String ishot);//where ishot = ?
 }
