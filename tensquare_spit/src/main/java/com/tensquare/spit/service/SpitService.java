@@ -45,6 +45,7 @@ public class SpitService {
     }
 
     public void save(Spit spit){
+        //数据初始化
         spit.set_id(idWorker.nextId()+"");
         spit.setPublishtime(new Date());//发布日期
         spit.setVisits(0);//浏览量
@@ -77,9 +78,18 @@ public class SpitService {
     }
 
     public void thumbup(String spitId) {
-        //效率高，与数据库交互一次
+        //方式一：与数据库交互两次，效率低
+        /*Spit spit = this.spitDao.findById(spitId).get();
+        spit.setThumbup((spit.getThumbup()==null?0:spit.getThumbup())+1);
+        spitDao.save(spit);*/
+
+
+        /**
+         * 使用原生mongo命令实现自增  db.spit.update({"_id":"1"},{$inc:{"thumbup":NumberInt(1)}})
+         * 效率高，与数据库交互一次
+         */
         Query query=new Query();
-        query.addCriteria(Criteria.where("_id").is("1"));
+        query.addCriteria(Criteria.where("_id").is(spitId));
         Update update=new Update();
         update.inc("thumbup",1);
         mongoTemplate.updateFirst(query,update,"spit");

@@ -1,0 +1,3 @@
+spring:
+  rabbitmq:
+    host: 106.54.33.134
