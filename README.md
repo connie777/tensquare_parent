@@ -1,0 +1,1 @@
+架构：SpringBoot+SpringData+SpringCloud+JWT+Redis+MongoDB+RabbitMQ+Docker+Elasticsearch
