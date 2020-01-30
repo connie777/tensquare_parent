@@ -1,28 +1,22 @@
 package com.tensquare.user.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
-
+import com.tensquare.user.dao.AdminDao;
+import com.tensquare.user.pojo.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import util.IdWorker;
 
-import com.tensquare.user.dao.AdminDao;
-import com.tensquare.user.pojo.Admin;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 服务层
@@ -38,6 +32,9 @@ public class AdminService {
 	
 	@Autowired
 	private IdWorker idWorker;
+
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	/**
 	 * 查询全部列表
@@ -87,6 +84,9 @@ public class AdminService {
 	 */
 	public void add(Admin admin) {
 		admin.setId( idWorker.nextId()+"" );
+		//密码加密
+        String newpwd=encoder.encode(admin.getPassword());
+        admin.setPassword(newpwd);
 		adminDao.save(admin);
 	}
 
@@ -142,4 +142,18 @@ public class AdminService {
 
 	}
 
+    /**
+     * 根据登录名和密码查询
+     * @param loginname
+     * @param password
+     * @return
+     */
+	public Admin findByLoginnameAndPassword(String loginname,String password){
+	    Admin admin=adminDao.findByLoginname(loginname);
+	    if(admin!=null&&encoder.matches(password,admin.getPassword())){
+	        return admin;
+        }else{
+	        return null;
+        }
+    }
 }

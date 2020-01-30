@@ -1,19 +1,19 @@
 package com.tensquare.user.controller;
-import java.util.List;
-import java.util.Map;
 
+import com.tensquare.user.pojo.User;
+import com.tensquare.user.service.UserService;
+import entity.PageResult;
+import entity.Result;
+import entity.StatusCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import util.JwtUtil;
 
-import com.tensquare.user.pojo.User;
-import com.tensquare.user.service.UserService;
-
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import java.util.HashMap;
+import java.util.Map;
 /**
  * 控制器层
  * @author Administrator
@@ -29,6 +29,38 @@ public class UserController {
 
 	@Autowired
     private RedisTemplate redisTemplate;
+
+	@Autowired
+    JwtUtil jwtUtil;
+
+    /**
+     * 更新好友粉丝数和用户关注数
+     * @param userId
+     * @param friendId
+     */
+    @PutMapping("/updateFansAndFllow/{userId}/{friendId}/{x}")
+	public void updateFansAndFllow(@PathVariable String userId,@PathVariable String friendId,
+                    @PathVariable int x){
+        userService.updateFansAndFllow(userId,friendId,x);
+    }
+
+
+	@PostMapping("/login")
+	public Result login(@RequestBody Map<String,String> loginmap){
+	    String mobile=loginmap.get("mobile");
+        String password=loginmap.get("password");
+        User user=userService.findByMobileAndPassword(mobile,password);
+        if(user!=null){
+            //颁发令牌
+            String token = jwtUtil.createJWT(user.getId(), user.getNickname(), "user");
+            Map<String,Object> map=new HashMap<>();
+            map.put("token",token);
+            map.put("role","user");
+            return new Result(true,StatusCode.OK,"登陆成功",map);
+        }else {
+            return new Result(false,StatusCode.LOGINERROR,"用户名或密码错误");
+        }
+    }
 
     /**
      * 发送短信验证码
