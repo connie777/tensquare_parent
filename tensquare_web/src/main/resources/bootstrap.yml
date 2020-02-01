@@ -1,0 +1,8 @@
+#对应github master 分支中配置文件  web-dev.yml
+spring:
+  cloud:
+    config:
+      name: web
+      profile: dev
+      label: master
+      uri: 127.0.0.1:12000  #配置微服务的 ip:port

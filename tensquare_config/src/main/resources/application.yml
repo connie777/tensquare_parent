@@ -1,0 +1,20 @@
+server:
+  port: 12000
+spring:
+  application:
+    name: tensquare-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/connie777/tensquare_config.git
+          username: connie777
+          password: w17717545847
+  rabbitmq:
+    host: 106.54.33.134
+
+management: #暴露触发消息总线的地址
+  endpoints:
+    web:
+      exposure:
+        include: bus-fresh

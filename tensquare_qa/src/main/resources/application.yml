@@ -22,3 +22,8 @@ eureka:
       defaultZone: http://127.0.0.1:6868/eureka/
   instance:
     prefer-ip-address: true
+
+#开启feign的熔断器功能
+feign:
+  hystrix:
+    enabled: true

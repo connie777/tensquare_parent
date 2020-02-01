@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import java.util.Date;
 
@@ -12,6 +13,8 @@ import java.util.Date;
  * Created by Administrator on 2018/4/11.
  */
 //@ConfigurationProperties("jwt.config")
+
+@RefreshScope
 public class JwtUtil {
     @Value("${jwt.config.key}")
     private String key ;
